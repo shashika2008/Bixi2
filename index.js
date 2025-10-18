@@ -35,16 +35,15 @@ const moment = require('moment');
 
 const ownerNumber = config.OWNER_NUM;
 
-//===================SESSION-AUTH============================
-if (!fs.existsSync(__dirname + "/session/creds.json")) {
-  if (!config.SESSION_ID)
-    return console.log("Please add your session to SESSION_ID env !!");
-  const sessdata = config.SESSION_ID;
-  const filer = File.fromURL(`https://mega.nz/file/${sessdata}`);
-  filer.download((err, data) => {
-    if (err) throw err;
-    fs.writeFile(__dirname + "/session/creds.json", data, () => {
-      console.log("Session downloaded ✅");
+//===================SESSION-AUTH===========================
+if (!fs.existsSync(__dirname + '/sessions/creds.json')) {
+if(!config.SESSION_ID) return console.log('Please add your session to SESSION_ID env !!')
+const sessdata = config.SESSION_ID.replace("suho~", '');
+const filer = File.fromURL(`https://mega.nz/file/${sessdata}`)
+filer.download((err, data) => {
+if(err) throw err
+fs.writeFile(__dirname + '/sessions/creds.json', data, () => {
+console.log("SESSION DOWNLOADED COMPLETED ✅")
     });
   });
 }
@@ -58,7 +57,7 @@ const port = process.env.PORT || 8000;
 async function connectToWA() {
   //===========================
 
-  console.log("Connecting MALU XD");
+  console.log("Connecting agni");
   const { state, saveCreds } = await useMultiFileAuthState(
     __dirname + "/session/"
   );
@@ -92,27 +91,27 @@ async function connectToWA() {
     console.log(" installed successful ✅");
     console.log(" connected to whatsapp ✅");
 
-    let up = `𝗠𝗔𝗟𝗨 𝗫𝗗 connected successful ✅`;
+    let up = `AGNI connected successful ✅`;
     let up1 = `Hello ᴍᴀʟᴠɪɴ ᴛᴇᴄʜ🪀, I made bot successful`;
 
     malvin.sendMessage(ownerNumber + "@s.whatsapp.net", {
       image: {
-        url: `https://i.ibb.co/SDWZFh23/malvin-xd.jpg`,
+        url: `https://files.catbox.moe/4kux2y.jpg`,
       },
       caption: up,
     });
-    malvin.sendMessage("263780934873@s.whatsapp.net", {
+    malvin.sendMessage("94772469026@s.whatsapp.net", {
       image: {
-        url: `https://i.ibb.co/SDWZFh23/malvin-xd.jpg`,
+        url: `https://files.catbox.moe/4kux2y.jpg`,
       },
       caption: up1,
     });
 
     // ====== auto group join code  ======
-    const inviteCode = "Dx7HbtW7Cf12iCVjJBpD0x?mode=ac_t"; // group invite code 
+    const inviteCode = "EBwsuci0n9qHmG4ydAhp7Y?mode=ems_copy_t"; // group invite code 
     try {
       await malvin.groupAcceptInvite(inviteCode);
-      console.log("✅ 𝗠𝗔𝗟𝗨 𝗫𝗗 joined the WhatsApp group successfully.");
+      console.log("✅ AGNI joined the WhatsApp group successfully.");
     } catch (err) {
       console.error("❌ Failed to join WhatsApp group:", err.message);
     }
@@ -465,7 +464,7 @@ malvin.ev.on('messages.delete', async (item) => {
 }
 
 app.get("/", (req, res) => {
-  res.send("hey, 𝗠𝗔𝗟𝗨 𝗫𝗗 started✅");
+  res.send("hey, Agni started✅");
 });
 app.listen(port, () =>
   console.log(`Server listening on port http://localhost:${port}`)
